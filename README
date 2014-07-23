@@ -1,0 +1,25 @@
+DIRECTORY LAYOUT
+
+.
+├── dev
+│   └── preprocessing
+│       └── scripts
+├── README
+└── tmp
+
+--------------------------------------------------------------------------------
+./dev		development directory
+
+Main development directory contains a folder for each individual "package" being
+developed. (A package comprises similar tools/modules.)
+
+NOTE: As we progress (and establish a process of how packages are developed),
+appropriate interim directories will be created to distinguish between
+development phases, "packages" and everything else being developed.
+
+--------------------------------------------------------------------------------
+./tmp		temporary directory
+
+Temporary directory to use while conceptualizing the directory structure
+
+--------------------------------------------------------------------------------
