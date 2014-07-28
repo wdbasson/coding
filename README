@@ -2,24 +2,68 @@ DIRECTORY LAYOUT
 
 .
 ├── dev
-│   └── preprocessing
+│   └── perl
+│       ├── lib
+│       │   └── MuST -> ../modules/MuST-DictAnalysis-Preproc/lib/MuST
+│       ├── modules
+│       │   └── MuST-DictAnalysis-Preproc
+│       │       ├── ...
+│       │       ├── lib
+│       │       │   └── MuST
+│       │       │       └── DictAnalysis
+│       │       │           └── Preproc.pm
+│       │       ├── ...
+│       │       └── t
+│       │           └── ...
 │       └── scripts
+│           └── MuST-DictAnalysis-Preproc
+│               ├── ...
+│               └── wrapper.sh
 ├── README
 └── tmp
+    ├── test_text_a.txt
+    └── test_text_b.txt
 
 --------------------------------------------------------------------------------
-./dev		development directory
+./dev                    Development directory
+--------------------------------------------------------------------------------
 
-Main development directory contains a folder for each individual "package" being
-developed. (A package comprises similar tools/modules.)
+Main development directory contains a folder for each programming language.
 
 NOTE: As we progress (and establish a process of how packages are developed),
 appropriate interim directories will be created to distinguish between
 development phases, "packages" and everything else being developed.
 
 --------------------------------------------------------------------------------
-./tmp		temporary directory
+./dev/perl               Language specific dev directory for Perl
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+./dev/perl/lib
+--------------------------------------------------------------------------------
+
+Symbolic links to module lib (eg. ./dev/perl/MuST-Module/lib/MuST/Module.pm)
+directories for convenience. @INC can be pointed here.
+
+--------------------------------------------------------------------------------
+./dev/perl/modules       Modules development folder
+--------------------------------------------------------------------------------
+
+Contains a folder for each individual module. Modules are created using the CPAN
+module-starter tool and the resulting directory structure contains everything
+needed to create, ship and install a Perl module.
+
+--------------------------------------------------------------------------------
+./dev/scripts            Module specific scripts directory
+--------------------------------------------------------------------------------
+
+Just few scripts to demonstrate the MuST-DictAnalysis-Preproc module.
+
+--------------------------------------------------------------------------------
+./tmp                    Temporary directory
+--------------------------------------------------------------------------------
 
 Temporary directory to use while conceptualizing the directory structure
+(Currently contains temporary test data.)
 
 --------------------------------------------------------------------------------
