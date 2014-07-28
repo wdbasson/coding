@@ -4,17 +4,17 @@ use warnings;
 use strict;
 use Carp;
 
-use open IO => ':encoding(utf8)';  # declare default layers utf8
-use open ':std';  # converts the standard filehandles (STDIN, STDOUT,
-                       # STDERR) to comply with encoding selected for
-                       # input/output handles
+use open IO => ':encoding(utf8)';    # declare default layers utf8
+use open ':std';    # converts the standard filehandles (STDIN, STDOUT,
+                    # STDERR) to comply with encoding selected for
+                    # input/output handles
 
 #------------------------------------------------------------------------------
 # Exporter wrapper to avoid runtime vs. compile-time trap
 #------------------------------------------------------------------------------
 use Exporter::Easy (
-  OK => [ qw(uppercase lowercase sort_unique sort_any randomize) ],
-);
+  OK => [qw(uppercase lowercase sort_unique sort_any randomize)], );
+
 # @ISA setup is automatic
 # all assignments happen at compile time
 
@@ -26,22 +26,24 @@ our $VERSION = '0.01';
 # Module implementation here
 
 sub uppercase {
-  return map{ uc }@_;
+  return map { uc } @_;
 }
 
 sub lowercase {
-  return map{ lc }@_;
+  return map { lc } @_;
 }
 
 sub sort_unique {
-  my @input = @_;
+  my @parameters = @_;
   my %hash;
-  $hash{$_}++ for (@input);
-  return (sort keys %hash);
+  foreach my $parameter (@parameters) {
+    $hash{$parameter}++;
+  }
+  return ( sort keys %hash );
 }
 
 sub sort_any {
-  return sort @_;
+  return ( sort @_ );
 }
 
 sub randomize {
@@ -49,7 +51,7 @@ sub randomize {
   return shuffle @_;
 }
 
-1; # Magic true value required at end of module
+1;    # Magic true value required at end of module
 __END__
 
 =head1 NAME
@@ -78,8 +80,8 @@ This document describes MuST::DictAnalysis::Preproc version 0.0.1
     print @random;
     ...
 
-  
-  
+
+
 =head1 DESCRIPTION
 
 =for author to fill in:
@@ -87,7 +89,7 @@ This document describes MuST::DictAnalysis::Preproc version 0.0.1
     Use subsections (=head2, =head3) as appropriate.
 
 
-=head1 INTERFACE 
+=head1 INTERFACE
 
 =for author to fill in:
     Write a separate section listing the public components of the modules
@@ -127,7 +129,7 @@ This document describes MuST::DictAnalysis::Preproc version 0.0.1
     files, and the meaning of any environment variables or properties
     that can be set. These descriptions must also include details of any
     configuration language used.
-  
+
 MuST::DictAnalysis::Preproc requires no configuration files or environment variables.
 
 
