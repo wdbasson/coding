@@ -1,25 +1,29 @@
 #!/bin/bash
+#
+# Wrapper script to execute Perl scripts demonstrating functionality of the
+# subroutines in the Preproc.pm module
+#
+# Author:  Willem Basson
+# Email:   wlmbasson@gmail.com
 
 set -eu
 
-svn=~/must
-project_dir=$svn/projects/coding
-work_dir=$project_dir/dev/perl
-script_dir=$work_dir/scripts/MuST-DictAnalysis-Preproc
+readonly SVN_DIR=~/must
+readonly PROJECT_DIR=$SVN_DIR/projects/coding
+readonly WORK_DIR=$PROJECT_DIR/dev/perl
+readonly SCRIPT_DIR=$WORK_DIR/scripts/MuST-DictAnalysis-Preproc
 
-test_text_a=$project_dir/tmp/test_text_a.txt
-test_text_b=$project_dir/tmp/test_text_b.txt
+readonly TEST_TEXT_A=$PROJECT_DIR/tmp/test_text_a.txt
+readonly TEST_TEXT_B=$PROJECT_DIR/tmp/test_text_b.txt
+# TODO (wdbasson): move test text to different dir
 
-export PERL5LIB=$PERL5LIB:$work_dir/lib
+export PERL5LIB=$PERL5LIB:$WORK_DIR/lib
 
 for script in uppercase lowercase sort_unique sort_any randomize; do
   echo "#---------------------------------------------------------------------"
   echo "Executing script $script.pl"
   echo "#---------------------------------------------------------------------"
-  set -x
-  perl $script_dir/$script.pl $test_text_a $test_text_b
-  #cat $test_text_a $test_text_b | perl $script_dir/$script.pl # script reads from STDIN so input can be piped
-  set +x
+  perl $SCRIPT_DIR/$script.pl $TEST_TEXT_A $TEST_TEXT_B
   echo "#---------------------------------------------------------------------"
   echo ""
 done
@@ -27,7 +31,6 @@ done
 echo "#---------------------------------------------------------------------"
 echo "Uppercase then sort unique.pl"
 echo "#---------------------------------------------------------------------"
-set -x
-perl $script_dir/uppercase.pl $test_text_a $test_text_b | perl $script_dir/sort_unique.pl
-set +x
+perl $SCRIPT_DIR/uppercase.pl $TEST_TEXT_A $TEST_TEXT_B \
+  | perl $SCRIPT_DIR/sort_unique.pl
 echo "#---------------------------------------------------------------------"
