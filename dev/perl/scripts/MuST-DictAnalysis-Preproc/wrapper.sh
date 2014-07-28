@@ -5,7 +5,7 @@ set -eu
 svn=~/must
 project_dir=$svn/projects/coding
 work_dir=$project_dir/dev/perl
-script_dir=$work_dir/scripts
+script_dir=$work_dir/scripts/MuST-DictAnalysis-Preproc
 
 test_text_a=$project_dir/tmp/test_text_a.txt
 test_text_b=$project_dir/tmp/test_text_b.txt
