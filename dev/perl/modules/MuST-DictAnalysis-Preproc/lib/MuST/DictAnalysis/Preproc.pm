@@ -4,6 +4,7 @@ use warnings;
 use strict;
 use Carp;
 
+#use Moose; # takes care of creating a new() method for you
 use open IO => ':encoding(utf8)';    # declare default layers utf8
 use open ':std';    # converts the standard filehandles (STDIN, STDOUT,
                     # STDERR) to comply with encoding selected for
@@ -12,6 +13,7 @@ use open ':std';    # converts the standard filehandles (STDIN, STDOUT,
 #------------------------------------------------------------------------------
 # Exporter wrapper to avoid runtime vs. compile-time trap
 #------------------------------------------------------------------------------
+# wdb: Object-oriented modules should export nothing
 use Exporter::Easy (
   OK => [qw(uppercase lowercase sort_unique sort_any randomize)], );
 
@@ -26,6 +28,7 @@ our $VERSION = '0.01';
 # Module implementation here
 
 sub uppercase {
+  #my $self = shift; # Methods are always written to receive the object as their first argument:
   return map { uc } @_;
 }
 
@@ -46,9 +49,13 @@ sub sort_any {
   return ( sort @_ );
 }
 
-sub randomize {
+sub randomize($@) {
+  my ($seed, @input) = @_;
+  if($seed) {
+    srand($seed);
+  }
   use List::Util 'shuffle';
-  return shuffle @_;
+  return shuffle @input;
 }
 
 1;    # Magic true value required at end of module
