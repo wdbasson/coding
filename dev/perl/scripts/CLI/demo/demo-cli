@@ -16,7 +16,12 @@ use base qw( CLI::Framework );
 
 use strict;
 use warnings;
-use lib "$ENV{HOME}/must/projects/coding/dev/perl/lib/MuST::DictAnalysis::Preproc";
+use lib "$ENV{HOME}/must/projects/coding/dev/perl/lib";
+use MuST::DictAnalysis::Preproc;
+use open IO => ':encoding(utf8)';    # declare default layers utf8
+use open ':std';    # converts the standard filehandles (STDIN, STDOUT,
+                    # STDERR) to comply with encoding selected for
+                    # input/output handles
 
 sub usage_text {
 # The usage_text() hook in the Application Class is meant to return a
@@ -110,7 +115,9 @@ sub validate {
     # hook should throw an exception with a descriptive error message.
     my ($self, $cmd_opts, @args) = @_;
 
-    die "Usage:" . $self->usage_text() . "\n" unless @args;
+    if ( -t STDIN and not @ARGV ) {
+      die "Usage:" . $self->usage_text() . "\n" unless @args;
+    }
 }
 
 sub run {
