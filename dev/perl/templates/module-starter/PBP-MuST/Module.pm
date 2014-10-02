@@ -5,6 +5,16 @@ use strict;
 use Carp;
 
 use version; $VERSION = qv('0.0.3');
+#------------------------------------------------------------------------------
+# Exporter wrapper to avoid runtime vs. compile-time trap
+#------------------------------------------------------------------------------
+use Exporter::Easy (
+  OK => [ qw(func1 func2) ],
+);
+# @ISA setup is automatic
+# all assignments happen at compile time
+# copied from: http://perldoc.perl.org/Exporter.html#Playing-Safe
+#------------------------------------------------------------------------------
 
 # Other recommended modules (uncomment to use):
 #  use IO::Prompt;
@@ -15,6 +25,21 @@ use version; $VERSION = qv('0.0.3');
 
 # Module implementation here
 
+# Structure comments
+### CLASS METHOD/INSTANCE METHOD/INTERFACE SUB/INTERNAL UTILITY ###
+# Purpose: ????
+# Returns: ????
+
+sub func1 {
+}
+
+### CLASS SUB###
+# Purpose: demonstrate structured comments
+# Returns: 'hello world'
+
+sub func2 {
+  return "hello world";
+}
 
 1; # Magic true value required at end of module
 __END__
