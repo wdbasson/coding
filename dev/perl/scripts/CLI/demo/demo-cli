@@ -26,7 +26,7 @@ use open ':std';    # converts the standard filehandles (STDIN, STDOUT,
 sub usage_text {
 # The usage_text() hook in the Application Class is meant to return a
 # usage string describing the whole application.
-# wdb: Annoyingly this specific usage_text() hook pads the whole string with whitespace...
+# wdbasson: Annoyingly this usage_text() hook pads the string with whitespace...
 qq{$0 [--verbose|v] [--help|h] <subcommand>:
 
 OPTIONS:
@@ -84,11 +84,6 @@ sub init {
     # This initialization is performed once for the application (default
     # behavior).
     my ($self, $opts) = @_;
-
-    # wdb: subroutines can't be both methods (OO) and functions (Export)
-    #my $preproc = MuST::DictAnalysis::Preproc->new();
-    # Store model object in shared cache...
-    #$self->cache->set( 'preproc' => $preproc );
 }
 
 
@@ -125,11 +120,7 @@ sub run {
     # subroutines, run() contains just the "real" program logic.
     my ($self, $opts, @args) = @_;
     my @stdin=<>;
-
     my @processed=MuST::DictAnalysis::Preproc::sort_unique(@stdin);
-    # wdb: subroutines can't be both methods (OO) and functions (Export)
-    #my $preproc = $self->cache->get( 'preproc' );
-    #my @sorted = $preproc->sort_unique(@stdin);
     my $output;
 
     # wdb: construct output string
@@ -158,7 +149,7 @@ sub usage_text {
 sub validate {
     my ($self, $cmd_opts, @args) = @_;
 
-    # wdb: check if STDIN filehandle open to TTY and die (happens if command run without arguments or stdin)
+    # wdbasson: check if STDIN filehandle open to TTY and die
     if ( -t STDIN and not @ARGV ) {
       die "Usage:" . $self->usage_text() . "\n" unless @args;
     }
@@ -168,9 +159,6 @@ sub validate {
 sub run {
     my ($self, $opts, @args) = @_;
     my @stdin=<>;
-
-    #my $preproc = $self->cache->get( 'preproc' );
-    #my @processed = $preproc->sort_any(@stdin);
     my @processed = MuST::DictAnalysis::Preproc::sort_any(@stdin);
     my $output;
 
@@ -206,8 +194,6 @@ sub validate {
 sub run {
     my ($self, $opts, @args) = @_;
     my @stdin=<>;
-    #my $preproc = $self->cache->get( 'preproc' );
-    #my @processed = $preproc->uppercase(@stdin);
     my @processed = MuST::DictAnalysis::Preproc::uppercase(@stdin);
     my $output;
 
@@ -243,8 +229,7 @@ sub validate {
 sub run {
     my ($self, $opts, @args) = @_;
     my @stdin=<>;
-
-    my @processed = MuST::DictAnalysis::Preproc::uppercase(@stdin);
+    my @processed = MuST::DictAnalysis::Preproc::lowercase(@stdin);
     my $output;
 
     foreach my $val (@processed) {
@@ -289,8 +274,6 @@ sub run {
     my ($self, $opts, @args) = @_;
     my @stdin=<>;
     my $seed = $opts->{seed};
-    #my $preproc = $self->cache->get( 'preproc' );
-    #my @processed = $preproc->randomize(@stdin);
     my @processed = MuST::DictAnalysis::Preproc::randomize($seed, @stdin);
     my $output;
 
