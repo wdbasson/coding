@@ -4,38 +4,36 @@ use warnings;
 use strict;
 use Carp;
 
-#use Moose; # takes care of creating a new() method for you
-use open IO => ':encoding(utf8)';    # declare default layers utf8
-use open ':std';    # converts the standard filehandles (STDIN, STDOUT,
-                    # STDERR) to comply with encoding selected for
-                    # input/output handles
-
 #------------------------------------------------------------------------------
 # Exporter wrapper to avoid runtime vs. compile-time trap
 #------------------------------------------------------------------------------
-# wdb: Object-oriented modules should export nothing
 use Exporter::Easy (
   OK => [qw(uppercase lowercase sort_unique sort_any randomize)], );
 
 # @ISA setup is automatic
 # all assignments happen at compile time
-
 # copied from: http://perldoc.perl.org/Exporter.html#Playing-Safe
 #------------------------------------------------------------------------------
 
 our $VERSION = '0.01';
 
-# Module implementation here
-
+### CLASS SUB ##
+# Purpose: convert chars to uppercase
+# Returns: uppercase mapped parameters
 sub uppercase {
-  #my $self = shift; # Methods are always written to receive the object as their first argument:
   return map { uc } @_;
 }
 
+### CLASS SUB ###
+# Purpose: convert chars to lowercase
+# Returns: lowercase mapped parameters
 sub lowercase {
   return map { lc } @_;
 }
 
+### CLASS SUB ###
+# Purpose: performs unique sort
+# Returns: uniquely sorted list
 sub sort_unique {
   my @parameters = @_;
   my %hash;
@@ -45,13 +43,19 @@ sub sort_unique {
   return ( sort keys %hash );
 }
 
+### CLASS SUB ###
+# Purpose: performs sort
+# Returns: sorted list
 sub sort_any {
   return ( sort @_ );
 }
 
+### CLASS SUB ###
+# Purpose: randomize input
+# Returns: randomized list
 sub randomize($@) {
-  my ($seed, @input) = @_;
-  if($seed) {
+  my ( $seed, @input ) = @_;
+  if ($seed) {
     srand($seed);
   }
   use List::Util 'shuffle';
